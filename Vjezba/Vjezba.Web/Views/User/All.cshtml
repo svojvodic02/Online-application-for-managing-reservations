@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Vjezba.Model.User>
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Svi korisnici";
+    ViewData["Active"] = "Users";
+}
+
+<h2>Svi korisnici</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Admin</th>
+            <th>Kreiran</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+            <tr>
+                <td>@u.Id</td>
+                <td>@u.FirstName</td>
+                <td>@u.LastName</td>
+                <td>@u.Email</td>
+                <td>@u.PhoneNumber</td>
+                <td>
+                    @if (u.IsAdmin)
+                    {
+                        <span class="badge bg-success">Da</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Ne</span>
+                    }
+                </td>
+                <td>@u.CreatedAt.ToString("dd.MM.yyyy")</td>
+                <td>
+                    <a asp-controller="User" asp-action="Details" asp-route-id="@u.Id" class="btn btn-sm btn-info">Detalji</a>
+                    <a asp-controller="User" asp-action="Delete" asp-route-id="@u.Id" class="btn btn-sm btn-danger">Obriši</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

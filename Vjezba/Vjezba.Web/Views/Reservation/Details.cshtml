@@ -1,0 +1,45 @@
+﻿@model Vjezba.Model.Rezervacija
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Detalji rezervacije";
+    ViewData["Active"] = "Reservation";
+}
+
+<h2>Detalji rezervacije</h2>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Ime</dt>
+            <dd class="col-sm-8">@Model.Ime</dd>
+
+            <dt class="col-sm-4">Prezime</dt>
+            <dd class="col-sm-8">@Model.Prezime</dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+
+            <dt class="col-sm-4">Mobilni broj</dt>
+            <dd class="col-sm-8">@Model.Mobilni_broj</dd>
+
+            <dt class="col-sm-4">Datum rezervacije</dt>
+            <dd class="col-sm-8">@Model.Datum_Rezervacije.ToString("dd.MM.yyyy")</dd>
+
+            <dt class="col-sm-4">Vrijeme rezervacije</dt>
+            <dd class="col-sm-8">@Model.Vrijeme_Rezervacije.ToString("HH:mm")</dd>
+
+            <dt class="col-sm-4">Trajanje rezervacije</dt>
+            <dd class="col-sm-8">@Model.Vrijeme_Trajanja_Rezervacije</dd>
+
+            <dt class="col-sm-4">Korisnik</dt>
+            <dd class="col-sm-8">@Model.User?.FirstName @Model.User?.LastName</dd>
+
+            <dt class="col-sm-4">Stol</dt>
+            <dd class="col-sm-8">@Model.Stol?.Broj_Stolica</dd>
+        </dl>
+
+        <a asp-controller="Reservation" asp-action="All" class="btn btn-secondary">Nazad na listu</a>
+        <a asp-controller="Reservation" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Uredi</a>
+    </div>
+</div>

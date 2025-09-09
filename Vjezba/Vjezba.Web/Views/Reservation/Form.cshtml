@@ -1,0 +1,98 @@
+﻿@model Rezervacija
+
+@{
+    ViewData["Title"] = "Rezervacija";
+    Layout = "_Layout";
+}
+<head>
+    <style>
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            filter: brightness(0.7);
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .overlay-box {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+    </style>
+</head>
+<div class="hero-container">
+    <img class="hero-bg" src="https://resizer.otstatic.com/v3/photos/62787627-3?width=1280&height=720&webp=true" alt="Background" />
+
+    <div class="overlay-box">
+        <h3 class="mb-4">Rezervacija</h3>
+
+        @if (Model != null)
+        {
+            <form asp-action="Form" method="post">
+                <input asp-for="Id_Stol" type="hidden" />
+                <input asp-for="Datum_Rezervacije" type="hidden" />
+                <input asp-for="Vrijeme_Rezervacije" type="hidden" />
+
+                <div class="mb-3 text-start">
+                    <label>Ime</label>
+                    <input asp-for="Ime" class="form-control" />
+                    <span asp-validation-for="Ime" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label>Prezime</label>
+                    <input asp-for="Prezime" class="form-control" />
+                    <span asp-validation-for="Prezime" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label>Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label>Mobilni broj</label>
+                    <input asp-for="Mobilni_broj" class="form-control" />
+                    <span asp-validation-for="Mobilni_broj" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label>Vrijeme trajanja rezervacije</label>
+                    <input asp-for="Vrijeme_Trajanja_Rezervacije" type="time" step="300" min="00:00" max="23:55" class="form-control" />
+                    <span asp-validation-for="Vrijeme_Trajanja_Rezervacije" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Potvrdi rezervaciju</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="alert alert-danger text-center">
+                Nije odabran ispravni ID stola.
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Vjezba.Model.Rezervacija>
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Sve rezervacije";
+    ViewData["Active"] = "Reservations";
+}
+
+<h2>Sve rezervacije</h2>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Datum</th>
+            <th>Vrijeme</th>
+            <th>Broj osoba</th>
+            <th>Korisnik</th>
+            <th>Stol</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Datum_Rezervacije.ToString("dd.MM.yyyy")</td>
+                    <td>@r.Vrijeme_Rezervacije</td>
+                    <td>@r.Stol.Broj_Stolica</td>
+                    <td>@r.User?.Email</td>
+                    <td>@r.Stol?.Broj_Stolica</td>
+                    <td>
+                        <a asp-controller="Reservation" asp-action="Details" asp-route-id="@r.Id" class="btn btn-sm btn-info">Detalji</a>
+                        <a asp-controller="Reservation" asp-action="Delete" asp-route-id="@r.Id" class="btn btn-sm btn-danger">Obriši</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

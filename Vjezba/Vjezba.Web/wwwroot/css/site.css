@@ -1,0 +1,102 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* default weight for body text */
+    font-style: normal;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    left: 0;
+    right: 0;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('https://resizer.otstatic.com/v3/photos/62787627-3?width=1280&height=720&webp=true');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #fff8dc;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffd36e;
+}
+
+.hero p {
+    font-size: 1.5rem;
+}
+
+.hero .btn {
+    background-color: #fff3d9;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-weight: bold;
+}
+
+    .hero .btn:hover {
+        background-color: #ffd36e;
+    }
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1.2s ease-out;
+}

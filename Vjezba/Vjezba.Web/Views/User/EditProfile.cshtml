@@ -1,0 +1,46 @@
+﻿@model Vjezba.Model.User
+
+@{
+    ViewData["Title"] = "Uredi profil";
+}
+
+<div class="hero">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="card shadow-lg p-4 rounded-3" style="width: 400px; background-color: #fff3d9;">
+            <h2 class="text-center mb-4 text-dark">Uredi profil</h2>
+
+            <form asp-action="EditProfile" method="post">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="Password" />
+
+                <div class="form-group mb-3">
+                    <label>Ime</label>
+                    <input asp-for="FirstName" class="form-control rounded-pill" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Prezime</label>
+                    <input asp-for="LastName" class="form-control rounded-pill" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid mt-3">
+                    <button type="submit" class="btn btn-light rounded-pill fw-bold">
+                        Spremi promjene
+                    </button>
+                </div>
+                <div class="text-center mt-3">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                        Odustani
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

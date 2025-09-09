@@ -1,0 +1,246 @@
+﻿@model List<Vjezba.Model.Stol>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create a hero image</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url("https://resizer.otstatic.com/v3/photos/62787627-3?width=1280&height=720&webp=true") no-repeat center center/cover;
+        }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.55);
+            }
+
+        .logo {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            min-height: 75vh;
+            background: rgba(255, 255, 255, 0.97);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1; 
+        }
+
+            .logo h4 {
+                font-size: 26px;
+                font-weight: 600;
+                margin-bottom: 25px;
+                color: #333;
+            }
+
+        .input-fields {
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+
+            .input-fields input {
+                flex: 1;
+                min-width: 180px;
+                padding: 12px 15px;
+                border-radius: 10px;
+                border: 1px solid #ddd;
+                font-size: 15px;
+                outline: none;
+                transition: 0.2s ease;
+            }
+
+                .input-fields input:focus {
+                    border-color: #6ec1e4;
+                    box-shadow: 0 0 5px rgba(110, 193, 228, 0.5);
+                }
+
+        .logo button {
+            margin-top: 20px;
+            border: none;
+            padding: 12px 25px;
+            background: #6ec1e4;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+            .logo button:disabled {
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
+            .logo button:enabled:hover {
+                background-color: #56afd4;
+                transform: scale(1.02);
+            }
+
+        .hidden-image {
+            display: none;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+            .choices a {
+                display: inline-block;
+            }
+
+            .choices img {
+                width: 150px;
+                height: auto;
+                border-radius: 12px;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+            }
+
+                .choices img:hover {
+                    transform: scale(1.07);
+                }
+
+        .card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            transition: transform 0.2s ease;
+            width: 180px;
+        }
+
+            .card:hover {
+                transform: translateY(-6px);
+            }
+
+        .card-body {
+            text-align: center;
+            padding: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .booked {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="logo">
+            <div class="input-fields">
+                <input type="date" id="dateInput" name="datum_Rezervacije" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                <input type="time" id="timeInput" min="12:00" max="22:00" step="300" placeholder="Odaberite vrijeme" required>
+                <input type="number" id="personInput" name="brojOsoba" min="1" step="1" placeholder="Broj osoba" required />
+            </div>
+
+            <button id="showImageBtn" disabled>Prikaži dostupnost</button>
+
+            @if (ViewBag.SelectedDate != null && ViewBag.SelectedTime != null)
+            {
+                <div class="choices">
+                    @foreach (var item in Model)
+                    {
+                        bool zauzet = false;
+
+                        DateOnly selectedDate = (DateOnly)ViewBag.SelectedDate;
+                        TimeOnly selectedTime = (TimeOnly)ViewBag.SelectedTime;
+
+                        TimeSpan trajanjeNovo = TimeSpan.FromHours(2);
+                        TimeOnly krajNovo = selectedTime.Add(trajanjeNovo);
+
+                        zauzet = item.Rezervacije.Any(r =>
+                        r.Datum_Rezervacije == selectedDate &&
+                        r.Vrijeme_Rezervacije < krajNovo &&
+                        selectedTime < r.Vrijeme_Rezervacije.Add(r.Vrijeme_Trajanja_Rezervacije)
+                        );
+
+                        var slika = Url.Content($"~/images/{item.Broj_Stolica}.png");
+                        var alt = $"Stol za {item.Broj_Stolica}";
+
+                        if (zauzet)
+                        {
+                            <img src="@slika" alt="@alt" class="booked" />
+                        }
+                        else
+                        {
+                            <a asp-action="Form"
+                               asp-route-id="@item.Id"
+                               asp-route-date="@ViewBag.SelectedDate"
+                               asp-route-time="@ViewBag.SelectedTime">
+                                <img src="@slika" alt="@alt" />
+                            </a>
+                        }
+                    }
+                </div>
+            }
+
+        </div>
+
+
+
+    </div>
+
+    <script>
+        const dateInput = document.getElementById('dateInput');
+        const timeInput = document.getElementById('timeInput');
+        const personInput = document.getElementById('personInput');
+        const showImageBtn = document.getElementById('showImageBtn');
+
+        function checkInputs() {
+            showImageBtn.disabled = !(dateInput.value && timeInput.value && personInput.value);
+        }
+
+        dateInput.addEventListener('input', checkInputs);
+        timeInput.addEventListener('input', checkInputs);
+        personInput.addEventListener('input', checkInputs);
+
+        showImageBtn.addEventListener('click', function () {
+            const dateVal = dateInput.value;
+            const timeVal = timeInput.value;
+            const personVal = personInput.value;
+
+            const url = new URL(window.location.origin + window.location.pathname);
+            url.searchParams.set('date', dateVal);
+            url.searchParams.set('time', timeVal);
+            url.searchParams.set('persons', personVal);
+            window.location.href = url.toString();
+        });
+    </script>
+</body>
+</html>

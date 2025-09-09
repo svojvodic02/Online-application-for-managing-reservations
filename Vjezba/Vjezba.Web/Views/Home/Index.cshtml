@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero relative h-[90vh] bg-cover bg-center flex items-center justify-center"
+     style="background-image:url('https://resizer.otstatic.com/v3/photos/62787627-3?width=1280&height=720&webp=true');">
+
+    <div class="hero-overlay absolute inset-0 bg-black/50"></div>
+
+    <div class="hero-content relative z-10 text-center text-white space-y-6 animate-fadeIn">
+        <h1 class="text-5xl font-bold drop-shadow-lg">Dobrodošli u naš restoran</h1>
+        <p class="text-lg max-w-xl mx-auto opacity-90">
+            Iskusite vrhunsku kuhinju u ugodnoj atmosferi. Rezervirajte svoj stol već danas.
+        </p>
+
+        <a class="btn bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl shadow-lg
+                   transition transform hover:scale-105"
+           asp-controller="Reservation" asp-action="Index">
+            Rezervirajte stol
+        </a>
+    </div>
+</div>

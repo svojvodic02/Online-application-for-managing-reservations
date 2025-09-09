@@ -1,0 +1,36 @@
+﻿@model Vjezba.Model.User
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Detalji korisnika";
+    ViewData["Active"] = "User";
+}
+
+<h2>Detalji korisnika</h2>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Ime</dt>
+            <dd class="col-sm-8">@Model.FirstName</dd>
+
+            <dt class="col-sm-4">Prezime</dt>
+            <dd class="col-sm-8">@Model.LastName</dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+
+            <dt class="col-sm-4">Telefon</dt>
+            <dd class="col-sm-8">@Model.PhoneNumber</dd>
+
+            <dt class="col-sm-4">Administrator</dt>
+            <dd class="col-sm-8">@(Model.IsAdmin ? "Da" : "Ne")</dd>
+
+            <dt class="col-sm-4">Kreiran</dt>
+            <dd class="col-sm-8">@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+
+        <a asp-controller="User" asp-action="All" class="btn btn-secondary">Nazad na listu</a>
+        <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Uredi</a>
+    </div>
+</div>

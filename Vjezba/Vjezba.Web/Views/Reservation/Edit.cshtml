@@ -1,0 +1,57 @@
+﻿@model Vjezba.Model.Rezervacija
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Uredi rezervaciju";
+    ViewData["Active"] = "Reservation";
+}
+
+<h2>Uredi rezervaciju</h2>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Ime"></label>
+        <input asp-for="Ime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Prezime"></label>
+        <input asp-for="Prezime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Mobilni_broj"></label>
+        <input asp-for="Mobilni_broj" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Datum_Rezervacije"></label>
+        <input asp-for="Datum_Rezervacije" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vrijeme_Rezervacije"></label>
+        <input asp-for="Vrijeme_Rezervacije" class="form-control" type="time" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Vrijeme_Trajanja_Rezervacije"></label>
+        <input asp-for="Vrijeme_Trajanja_Rezervacije" class="form-control" type="time" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Id_Korisnika">Korisnik</label>
+        <select asp-for="Id_Korisnika" asp-items="ViewBag.Users" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Id_Stol">Stol</label>
+        <select asp-for="Id_Stol" asp-items="ViewBag.Stolovi" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Spremi</button>
+    <a asp-action="All" class="btn btn-secondary">Odustani</a>
+</form>

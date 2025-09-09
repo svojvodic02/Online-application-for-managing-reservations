@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Panel";
+    ViewData["Active"] = "";
+}
+
+<h2>Dobrodošli u Admin Panel</h2>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Korisnici</h5>
+                <p class="card-text">Ukupno korisnika: <strong>@ViewBag.UserCount</strong></p>
+                <a asp-controller="User" asp-action="All" class="btn btn-primary">Pregledaj korisnike</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card text-center shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Rezervacije</h5>
+                <p class="card-text">Ukupno rezervacija: <strong>@ViewBag.ReservationCount</strong></p>
+                <a asp-controller="Reservation" asp-action="All" class="btn btn-primary">Pregledaj rezervacije</a>
+            </div>
+        </div>
+    </div>
+</div>
