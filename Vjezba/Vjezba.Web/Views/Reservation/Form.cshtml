@@ -74,9 +74,19 @@
 
                 <div class="mb-3 text-start">
                     <label>Vrijeme trajanja rezervacije</label>
-                    <input asp-for="Vrijeme_Trajanja_Rezervacije" type="time" step="300" min="00:00" max="23:55" class="form-control" />
+                    <select asp-for="Vrijeme_Trajanja_Rezervacije" class="form-control">
+                        @for (var h = 3; h <= 6; h++)  
+                        {
+                            for (var m = 0; m < 60; m += 5)
+                            {
+                                var time = new TimeSpan(h, m, 0);
+                                <option value="@time">@time.ToString(@"hh\:mm")</option>
+                            }
+                        }
+                    </select>
                     <span asp-validation-for="Vrijeme_Trajanja_Rezervacije" class="text-danger"></span>
                 </div>
+
 
                 <div class="d-grid mt-4">
                     <button type="submit" class="btn btn-success btn-lg">Potvrdi rezervaciju</button>

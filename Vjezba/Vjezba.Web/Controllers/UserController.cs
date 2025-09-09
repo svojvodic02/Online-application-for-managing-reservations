@@ -69,7 +69,11 @@ namespace Vjezba.Web.Controllers
             if (string.IsNullOrEmpty(userEmail))
                 return RedirectToAction("Login");
 
-            var user = _dbContext.Users.FirstOrDefault(u => u.Email == userEmail);
+            var user = _dbContext.Users
+                .Include(u => u.Rezervacije)
+                .ThenInclude(r => r.Stol) 
+                .FirstOrDefault(u => u.Email == userEmail);
+
             if (user == null)
                 return RedirectToAction("Login");
 

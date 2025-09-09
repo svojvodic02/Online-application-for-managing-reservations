@@ -165,7 +165,20 @@
         <div class="logo">
             <div class="input-fields">
                 <input type="date" id="dateInput" name="datum_Rezervacije" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
-                <input type="time" id="timeInput" min="12:00" max="22:00" step="300" placeholder="Odaberite vrijeme" required>
+                <select id="timeInput"
+                        name="vrijeme_Rezervacije"
+                        class="form-control"
+                        required>
+                    <option value="">-- Odaberite vrijeme --</option>
+                    @for (var h = 12; h <= 22; h++)
+                    {
+                        for (var m = 0; m < 60; m += 5)
+                        {
+                            var time = new TimeOnly(h, m);
+                            <option value="@time.ToString("HH:mm")">@time.ToString("HH:mm")</option>
+                        }
+                    }
+                </select>
                 <input type="number" id="personInput" name="brojOsoba" min="1" step="1" placeholder="Broj osoba" required />
             </div>
 
